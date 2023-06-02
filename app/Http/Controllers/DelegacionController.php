@@ -7,7 +7,7 @@ use App\Http\Requests\StoreDelegacionRequest;
 use App\Http\Requests\UpdateDelegacionRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Admin\Region;
+use App\Models\Region;
 
 class DelegacionController extends Controller
 {
@@ -28,7 +28,7 @@ class DelegacionController extends Controller
     {
         $regiones = Region::all();
         $delegaciones = Delegacion::paginate(50);
-        return view('delegaciones.index',['regiones'=>$regiones,'delegaciones'=>$delegaciones]);
+        return view('admin.delegaciones.index',['regiones'=>$regiones,'delegaciones'=>$delegaciones]);
     }
 
     /**
@@ -39,7 +39,7 @@ class DelegacionController extends Controller
     public function create()
     {
         $regiones = Region::all();
-        return view('delegaciones.crear',['regiones'=>$regiones]);
+        return view('admin.delegaciones.crear',['regiones'=>$regiones]);
     }
 
     /**
@@ -89,7 +89,7 @@ class DelegacionController extends Controller
     {
         $regiones = Region::all();
         $delegacion = Delegacion::find($id);
-        return view('delegaciones.editar',['regiones'=>$regiones,'delegacion'=>$delegacion]);
+        return view('admin.delegaciones.editar',['regiones'=>$regiones,'delegacion'=>$delegacion]);
     }
 
     /**

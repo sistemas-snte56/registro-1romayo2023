@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Rol;
+//use App\Models\Rol;
 use App\Http\Requests\StoreRolRequest;
 use App\Http\Requests\UpdateRolRequest;
 
@@ -37,7 +37,7 @@ class RolController extends Controller
     public function index()
     {
         $roles = Role::paginate(15);
-        return view('roles.index',['roles'=>$roles]);
+        return view('admin.roles.index',['roles'=>$roles]);
     }
 
     /**
@@ -48,7 +48,7 @@ class RolController extends Controller
     public function create()
     {
         $permission = Permission::get();
-        return view('roles.crear',['permission'=>$permission]);        
+        return view('admin.roles.crear',['permission'=>$permission]);        
     }
 
     /**
@@ -81,7 +81,7 @@ class RolController extends Controller
      * @param  \App\Models\Rol  $rol
      * @return \Illuminate\Http\Response
      */
-    public function edit(Rol $rol, $id)
+    public function edit($id)
     {
 
         $role = Role::find($id);
@@ -90,7 +90,7 @@ class RolController extends Controller
             ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
             ->all();
 
-        return view('roles.editar',['role'=>$role, 'permission'=>$permission, 'rolePermission'=>$rolePermission]);
+        return view('admin.roles.editar',['role'=>$role, 'permission'=>$permission, 'rolePermission'=>$rolePermission]);
     
 
     }
@@ -102,7 +102,7 @@ class RolController extends Controller
      * @param  \App\Models\Rol  $rol
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRolRequest $request, Rol $rol, $id)
+    public function update(UpdateRolRequest $request, $id)
     {
         $request->validate([
             'name' => 'required',
@@ -118,7 +118,7 @@ class RolController extends Controller
        
         $role->syncPermissions($request->input('permission'));
 
-        return redirect()->route('roles.index')->with('success','Rol actualizado correctamente');
+        return redirect()->route('roles.index')->with('success','El rol ha sido actualizado correctamente.');
     
     }
 
@@ -131,6 +131,6 @@ class RolController extends Controller
     public function destroy($id)
     {
         DB::table('roles')->where('id',$id)->delete();
-        return redirect()->route('roles.index')->with('success','Se elimino correctamente el rol.');
+        return redirect()->route('roles.index')->with('danger','El rol se ha eliminado de forma correcta.');
     }
 }

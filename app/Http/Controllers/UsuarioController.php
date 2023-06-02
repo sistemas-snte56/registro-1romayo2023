@@ -33,25 +33,30 @@ class UsuarioController extends Controller
         // $usuarios = Usuario::where('id_users',\Illuminate\Support\Facades\Auth::user()->id)->paginate(20);
         // $usuarios = DB::table('usuarios')->where('id_users',\Illuminate\Support\Facades\Auth::user()->id);
 
-        $usuarios = Usuario::where('id_users', \Illuminate\Support\Facades\Auth::user()->id )
-                                //->orWhere('id_users', 1)
-                                ->paginate(50);
+        // $usuarios = Usuario::where('id_users', \Illuminate\Support\Facades\Auth::user()->id )
+        //                         //->orWhere('id_users', 1)
+        //                         ->paginate(50);
 
+        $usuarios = Usuario::paginate(20);
         $regiones = Region::all();
 
         //dd($usuarios);
         // $usuario->id_users = \Illuminate\Support\Facades\Auth::user()->id;    
 
         //dd($usuarios);
-        return view('usuarios.index',['usuarios'=>$usuarios, 'regiones' =>$regiones]);
+        return view('admin.usuarios.index',['usuarios'=>$usuarios, 'regiones' =>$regiones]);
     }
 
 
 
     public function obtenerDelegaciones($id)
     {
-        $delegaciones = DB::table('delegaciones')->where('id_region',$id)->pluck('delegacion','id');
+        // $delegaciones = DB::table('delegaciones')->where('id_region',$id)->pluck('delegacion','id');
         //dd($delegaciones);
+        $delegaciones= DB::table('delegaciones')
+                        ->select('id','delegacion','nivel','sede')
+                        ->where('id_region',$id)
+                        ->get();
         return response()->json($delegaciones);
     }
 
@@ -75,7 +80,7 @@ class UsuarioController extends Controller
         $regiones = Region::all();
         $delegaciones = Delegacion::all();
 
-        return view('usuarios.crear', ['genero' => $genero , 'niveles' => $niveles, 'regiones' => $regiones, 'delegaciones' => $delegaciones]);
+        return view('admin.usuarios.crear', ['genero' => $genero , 'niveles' => $niveles, 'regiones' => $regiones, 'delegaciones' => $delegaciones]);
     }
 
     /**
@@ -84,7 +89,6 @@ class UsuarioController extends Controller
      * @param  \App\Http\Requests\StoreUsuarioRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUsuarioRequest $request)
     public function store(StoreUsuarioRequest $request)
     {
         // dd($request);
@@ -152,7 +156,7 @@ class UsuarioController extends Controller
     {
         $usuario = Usuario::find($usuario->id);
         // dd($usuario);
-        return view('usuarios.ver',['usuario'=>$usuario]);
+        return view('admin.usuarios.ver',['usuario'=>$usuario]);
     }
 
     /**
@@ -169,7 +173,7 @@ class UsuarioController extends Controller
         $region = Region::all();
         $delegacion = Delegacion::all();
 
-        return view('usuarios.editar', ['usuario'=>$usuario, 'genero' => $genero , 'nivel' => $nivel, 'region' => $region, 'delegacion' => $delegacion]);        
+        return view('admin.usuarios.editar', ['usuario'=>$usuario, 'genero' => $genero , 'nivel' => $nivel, 'region' => $region, 'delegacion' => $delegacion]);        
 
     }
 
@@ -220,11 +224,11 @@ class UsuarioController extends Controller
         ]);
 
 
-        $usuario->nombre = $request->input('nombre');
-        $usuario->apaterno = $request->input('apaterno');
-        $usuario->amaterno = $request->input('amaterno');
-        $usuario->curp = $request->input('curp');
-        $usuario->rfc = $request->input('rfc');
+        $usuario->nombre = strtoupper($request->input('nombre'));
+        $usuario->apaterno = strtoupper($request->input('apaterno'));
+        $usuario->amaterno = strtoupper($request->input('amaterno'));
+        $usuario->curp = strtoupper($request->input('curp'));
+        $usuario->rfc = strtoupper($request->input('rfc'));
         $usuario->id_genero = $request->input('genero');
         $usuario->telefono = $request->input('telefono');
         $usuario->email = $request->input('email');

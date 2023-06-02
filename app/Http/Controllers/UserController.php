@@ -31,7 +31,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::paginate(60);
-        return view ('users.index',['users'=>$users]);
+        return view ('admin.users.index',['users'=>$users]);
     }
 
 
@@ -46,7 +46,7 @@ class UserController extends Controller
         $roles = Role::all()->pluck('name','name');
         $roles = ['' => 'Selecciona opción'] + $roles->toArray();
 
-        return view('users.crear',['roles'=>$roles]);        
+        return view('admin.users.crear',['roles'=>$roles]);        
     }
 
     /**
@@ -77,9 +77,10 @@ class UserController extends Controller
         $user->email = $request->input('email');
         $user->password = Hash::make($request->input('password'));
         $user->assignRole($request->input('roles'));
+        
         $user->save();
 
-        return redirect()->route('users.index')->with('success','Usuario Registrado satisfactoriamente');
+        return redirect()->route('admin.users.index')->with('success','Usuario Registrado satisfactoriamente');
 
             
     }
@@ -96,7 +97,7 @@ class UserController extends Controller
         $roles = Role::pluck('name','name')->all();
         $userRoles = $user->roles->pluck('name','name')->all();
 
-        return view('users.editar', ['user'=>$user, 'roles'=>$roles, 'userRoles'=>$userRoles]);
+        return view('admin.users.editar', ['user'=>$user, 'roles'=>$roles, 'userRoles'=>$userRoles]);
     }
 
     /**
@@ -129,7 +130,7 @@ class UserController extends Controller
         DB::table('model_has_roles')->where('model_id',$id)->delete();
 
         $user->assignRole($request->input('roles'));
-        return redirect()->route('users.index');
+        return redirect()->route('admin.users.index');
 
     }
 
@@ -141,6 +142,6 @@ class UserController extends Controller
     public function destroy($id)
     {
         User::find($id)->delete();
-        return redirect()->route('users.index');
+        return redirect()->route('admin.users.index');
     }
 }
