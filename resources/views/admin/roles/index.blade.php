@@ -11,7 +11,7 @@
                     <div class="card">
                         <div class="card-body">
                             {{-- Cuando se Crea/Actualiza un rol --}}
-                            @if (Session::has('success')) 
+                            @if (Session::has('success'))
                                 <div class="alert alert-success alert-dismissible" role="alert">
                                     <button type="button" class="close" data-dismiss="alert">
                                         <i class="fa fa-times"></i>
@@ -26,33 +26,34 @@
                                     </button>
                                     <strong>Listo !</strong> {{ session('danger') }}
                                 </div>
-                            @endif                            
+                            @endif
                             {{-- Directivas de permiso --}}
                             @can('crear-rol')
-                                <a href="{{route('roles.create')}}" class="btn btn-warning">Nuevo Rol</a>
+                                <a href="{{ route('roles.create') }}" class="btn btn-warning">Nuevo Rol</a>
                             @endcan
 
                             <table class="table table-striped mt-2">
-                                <thead style="background-color: rgb(255, 167, 66);" >
+                                <thead style="background-color: rgb(255, 164, 38);">
                                     <th style="display:none;">ID</th>
-                                    <th style="color: blanchedalmond;">ROL</th>
-                                    <th style="color: blanchedalmond;">ACCIONES</th>
+                                    <th style="color: white; text-shadow: 1px 1px 2px black">ROL</th>
+                                    <th style="color: white; text-shadow: 1px 1px 2px black">ACCIONES</th>
                                 </thead>
                                 <tbody>
                                     @foreach ($roles as $rol)
                                         <tr>
-                                            <td style="display: none;">{{$rol->id}}</td>
-                                            <td>{{$rol->name}}</td>
+                                            <td style="display: none;">{{ $rol->id }}</td>
+                                            <td>{{ $rol->name }}</td>
                                             <td>
                                                 @can('editar-rol')
-                                                    <a href="{{route('roles.edit',$rol->id)}}" class="btn btn-primary">Editar</a>
+                                                    <a href="{{ route('roles.edit', $rol->id) }}"
+                                                        class="btn btn-primary">Editar</a>
                                                 @endcan
 
                                                 @can('borrar-rol')
-                                                    {!! Form::open(['method'=>'DELETE', 'route'=>['roles.destroy',$rol->id], 'style'=>'display:inline']) !!}
-                                                        {!! Form::submit('Borrar', ['class'=>'btn btn-danger']) !!}
+                                                    {!! Form::open(['method' => 'DELETE', 'route' => ['roles.destroy', $rol->id], 'style' => 'display:inline']) !!}
+                                                    {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!}
                                                     {!! Form::close() !!}
-                                                @endcan                                                
+                                                @endcan
                                             </td>
                                         </tr>
                                     @endforeach
@@ -68,4 +69,3 @@
         </div>
     </section>
 @endsection
-

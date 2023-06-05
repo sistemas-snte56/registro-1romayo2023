@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\User;
+use App\Models\Region;
+use App\Models\Delegacion;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -45,8 +47,9 @@ class UserController extends Controller
         //abort(404);
         $roles = Role::all()->pluck('name','name');
         $roles = ['' => 'Selecciona opción'] + $roles->toArray();
+        $regiones = Region::all();
 
-        return view('admin.users.crear',['roles'=>$roles]);        
+        return view('admin.users.crear',['roles'=>$roles, 'regiones'=>$regiones]);        
     }
 
     /**
@@ -58,6 +61,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //abort(404);
+        //dd($request);
+
         $request->validate([
             'name'=>'required',
             'email'=>'required|email|unique:users,email',
@@ -77,10 +82,13 @@ class UserController extends Controller
         $user->email = $request->input('email');
         $user->password = Hash::make($request->input('password'));
         $user->assignRole($request->input('roles'));
+        $user->id_delegacion = $request->input('delegacion');
         
+
+        // dd($user);
         $user->save();
 
-        return redirect()->route('admin.users.index')->with('success','Usuario Registrado satisfactoriamente');
+        return redirect()->route('users.index')->with('success','Usuario Registrado satisfactoriamente');
 
             
     }
@@ -96,8 +104,11 @@ class UserController extends Controller
         $user = User::find($id);
         $roles = Role::pluck('name','name')->all();
         $userRoles = $user->roles->pluck('name','name')->all();
+        $region = Region::all();
+        $delegacion = Delegacion::all();
 
-        return view('admin.users.editar', ['user'=>$user, 'roles'=>$roles, 'userRoles'=>$userRoles]);
+        // return view('admin.users.editar', ['user'=>$user, 'roles'=>$roles, 'userRoles'=>$userRoles, 'region'=>$region]);
+        return view('admin.users.editar', compact('user','roles','userRoles','region','delegacion'));  
     }
 
     /**
@@ -108,7 +119,6 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
         $this->validate($request,[
             'name'=>'required',
             'email'=> ['required', 'email', 'unique:users,email,'. $id],
@@ -130,7 +140,7 @@ class UserController extends Controller
         DB::table('model_has_roles')->where('model_id',$id)->delete();
 
         $user->assignRole($request->input('roles'));
-        return redirect()->route('admin.users.index');
+        return redirect()->route('users.index');
 
     }
 
@@ -142,6 +152,6 @@ class UserController extends Controller
     public function destroy($id)
     {
         User::find($id)->delete();
-        return redirect()->route('admin.users.index');
+        return redirect()->route('users.index');
     }
 }

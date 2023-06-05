@@ -52,7 +52,25 @@
                                             {{ Form::password('confirm-password',  array('class'=>'form-control'))}}
                                         </div>
                                     </div>
-
+                                    <div class="col-xs-12 col-sm-12 col-md12">
+                                        <div class="form-group">
+                                            {!! Form::label('region','SELECCIONA REGIÓN') !!}
+                                            <select name="region" id="region" class="form-control">
+                                                <option value="">Selecciona opción</option>
+                                                @foreach ($regiones as $region)
+                                                    <option value="{{$region->id}}">{{$region->region}} - {{$region->sede}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md12">
+                                        <div class="form-group">
+                                            {!! Form::label('delegacion','SELECCIONA DELEGACION') !!}
+                                            <select name="delegacion" id="delegacion" class="form-control" disabled>
+                                                <option value="">Selecciona opción</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-xs-12 col-sm-12 col-md12">
                                         <div class="form-group">
                                             <label for="roles">ROLES</label>
@@ -76,4 +94,6 @@
         </div>
     </section>
 @endsection
-
+@section('scripts')
+<script src="{{ asset('assets/js/regiones.js') }}"></script>
+@endsection

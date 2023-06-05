@@ -35,7 +35,31 @@
                                             {!! Form::text('email', null, array('class' => 'form-control')) !!}
                                         </div>
                                     </div>
+                                    <div class="col-xs-12 col-sm-12 col-md12">
+                                        <div class="form-group">
+                                            {!! Form::label('region','REGION') !!}
+                                            <select name="region" id="region" class="form-control">
+                                                @foreach ($region as $item)
+                                                    <option value="{{$item->id}}" {{  $item->id == $user->delegaciones->id_region ? 'selected' : ''  }} > {{$item->region}} {{$item->sede}} </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
 
+                                    <div class="col-xs-12 col-sm-12 col-md12">
+                                        <div class="form-group">
+                                            {!! Form::label('delegacion','DELEGACION') !!}
+                                            <select name="delegacion" id="delegacion" class="form-control">
+                                                @foreach ($delegacion as $deleg)
+                                                    <option value="{{$deleg->id}}" {{$deleg->id == $user->id_delegacion ? 'selected' :'' }} >
+                                                        {{ $deleg->delegacion }} &nbsp;
+                                                        {{ $deleg->nivel }},&nbsp; 
+                                                        {{ $deleg->sede }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div> 
                                     <div class="col-xs-12 col-sm-12 col-md12">
                                         <div class="form-group">
                                             <label for="password">CONTRASEÑA</label>
@@ -74,4 +98,6 @@
         </div>
     </section>
 @endsection
-
+@section('scripts')
+<script src="{{ asset('assets/js/regiones.js') }}"></script>
+@endsection

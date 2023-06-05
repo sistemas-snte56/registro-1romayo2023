@@ -21,17 +21,17 @@
                             @endif
 
                             <table class="table table-striped mt-2">
-                                <thead style="background-color: rgb(255, 167, 66);" >
+                                <thead style="background-color: rgb(255, 164, 38);">
                                     <th style="display:none;">ID</th>
-                                    <th style="color: blanchedalmond;">REGION</th>
-                                    <th style="color: blanchedalmond;">SEDE</th>
+                                    <th style="color: white; text-shadow: 1px 1px 2px black">REGION</th>
+                                    <th style="color: white; text-shadow: 1px 1px 2px black">SEDE</th>
                                 </thead>
                                 <tbody>
                                     @foreach ($regiones as $region)
                                         <tr>
-                                            <td style="display: none;">{{$region->id}}</td>
-                                            <td>{{$region->region}}</td>
-                                            <td>{{$region->sede}}</td>
+                                            <td style="display: none;">{{ $region->id }}</td>
+                                            <td>{{ $region->region }}</td>
+                                            <td>{{ $region->sede }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -46,4 +46,3 @@
         </div>
     </section>
 @endsection
-
