@@ -119,6 +119,9 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $user = User::find($id);
+
         $this->validate($request,[
             'name'=>'required',
             'email'=> ['required', 'email', 'unique:users,email,'. $id],
@@ -135,13 +138,17 @@ class UserController extends Controller
 
         }
 
-        $user = User::find($id);
-        $user->update($input);
         DB::table('model_has_roles')->where('model_id',$id)->delete();
 
         $user->assignRole($request->input('roles'));
-        return redirect()->route('users.index');
+        
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->id_delegacion = $request->input('delegacion');
 
+        $user->save();
+
+        return redirect()->route('users.index');
     }
 
     /**

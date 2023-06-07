@@ -234,8 +234,19 @@ class UsuarioController extends Controller
         $usuario->email = $request->input('email');
         $usuario->npersonal = $request->input('npersonal');
         $usuario->id_nivel = $request->input('nivel');
-        $usuario->id_delegacion = $request->input('delegacion');      
-        $usuario->id_users = \Illuminate\Support\Facades\Auth::user()->id;      
+        $usuario->id_delegacion = $request->input('delegacion');   
+        
+        
+        //$usuario->id_users = \Illuminate\Support\Facades\Auth::user()->id;      
+        
+        
+        /*if (!empty($input['password'])) {
+            $input['password'] = Hash::make($input['password']);
+        }else{
+            $input = Arr::except($input, array('password'));
+
+        }*/        
+        
         $usuario->save();  
 
         // return view ("usuarios.message", ['msg' => "Registro actualizado"]);
