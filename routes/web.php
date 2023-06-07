@@ -47,3 +47,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::resource('usuarios', UsuarioController::class);
     Route::get('usuarios/region/{id}','UsuarioController@obtenerDelegaciones')->middleware('regiones.middleware');
 });
+
+Route::middleware(['auth'])->group(function(){
+    Route::resource('usuario',EdicionController::class);
+});

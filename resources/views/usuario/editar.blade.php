@@ -24,7 +24,7 @@
                             @endif
 
                             {{-- {!! Form::open(array('route'=>'usuarios.store', 'method'=>'POST')); !!} --}}
-                            {!! Form::model($usuario, ['method' => 'PATCH' , 'route' => ['usuarios.update', $usuario->id] ]) !!}
+                            {!! Form::model($usuario, ['method' => 'PATCH' , 'route' => ['usuario.update', $usuario->id] ]) !!}
 
                                 <div class="row">
 
@@ -70,14 +70,14 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-6 col-sm-6 col-md6">
+                                    <div class="col-xs-3 col-sm-3 col-md3">
                                         <div class="form-group">
                                             <label for="telefono">TELÉFONO</label>
                                             {{ Form::text('telefono', null, ['class'=>'form-control'])}}
                                         </div>
                                     </div> 
 
-                                    <div class="col-xs-6 col-sm-6 col-md6">
+                                    <div class="col-xs-3 col-sm-3 col-md3">
                                         <div class="form-group">
                                             <label for="email">CORREO ELECTRÓNICO</label>
                                             {{ Form::text('email', null, ['class'=>'form-control'])}}
@@ -98,26 +98,26 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-3 col-sm-3 col-md3">
+                                    <div class="col-xs-8 col-sm-8 col-md8">
                                         <div class="form-group">
-                                            {!! Form::label('region','REGION') !!}
-                                            {!! Form::select('regio', $region->pluck('region','id')  , $usuario->delegaciones->id_region,  ['class' => 'form-control','id'=>'region']) !!}
+                                            <label for="delegacion">DELEGACIÓN</label>
+                                            {!! Form::text('delegacion', $delegacionUser , ['class'=>'form-control', 'readonly' => 'true']) !!}
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-3 col-sm-3 col-md3">
+                                    <div class="col-xs-4 col-sm-4 col-md4">
                                         <div class="form-group">
-                                            {!! Form::label('delegacion','DELEGACION') !!}
-                                            {!! Form::select('delegacion', $delegacion->pluck('delegacion','id'), $usuario->id_delegacion, ['class' => 'form-control','id'=>'delegacion']) !!}
+                                            <label for="region">REGIÓN</label>
+                                            {!! Form::text('region', $regionUser , ['class'=>'form-control', 'readonly' => 'true']) !!}
                                         </div>
-                                    </div>                                    
+                                    </div>                             
 
                                     <div class="col-xs-12 col-sm-12 col-md12">
                                         <div class="form-group">
-                                            @can('ver-usuario')
-                                                <a href="{{route('usuarios.show',$usuario->id)}}" class="btn btn-success">Regresar</a>
+                                            @can('ver-usuario-deleg')
+                                                <a href="{{route('usuario.show',$usuario->id)}}" class="btn btn-success">Regresar</a>
                                             @endcan
-                                            @can('editar-usuario')
+                                            @can('editar-usuario-deleg')
                                             {!! Form::button('Actualizar', ['class' => 'btn btn-primary', 'type' => 'submit']) !!}
                                             @endcan
                                         </div>

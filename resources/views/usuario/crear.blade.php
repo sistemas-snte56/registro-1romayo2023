@@ -3,14 +3,18 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h3 class="page__heading">Alta de Usuario </h3>
+            <h3 class="page__heading">Alta de Usuario </h3> 
+            
         </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-
+                            <caption style="padding: 6px 0 8px" >
+                                <div  style="font-weight: 900">SECRETARIO /A GENEREAL O REPRESENTANTE DE C.T.</div>
+                                <div  style="font-weight: 600; padding: 4px 0 45px">{{ $user = Auth::user()->name;}}</div>
+                            </caption>
                             {{-- Control de errores --}}
                             @if ($errors->any())
                                 <div class="alert alert-warning alert-dismissible" role="alert">
@@ -23,9 +27,8 @@
                                 </div>                                
                             @endif
 
-                            {{-- {!! Form::open(array('route'=>'usuarios.store', 'method'=>'POST')); !!} --}}
-                            <form action="{{route('usuarios.store')}}" method="post">
-                                @csrf
+                            {!! Form::open([ 'route'=>'usuario.store','method'=>'POST']) !!}
+                                {{-- @csrf --}}
                                 <div class="row">
                                     <div class="col-xs-4 col-sm-4 col-md4">
                                         <div class="form-group">
@@ -67,7 +70,7 @@
                                     <div class="col-xs-3 col-sm-3 col-md3">
                                         <div class="form-group">
                                             <label for="telefono">TELÉFONO</label>
-                                            {{ Form::text('telefono', null, ['class'=>'form-control','placeholder'=>'Ingresa tu teléfono'])}}
+                                            {{ Form::text('telefono', null, ['class'=>'form-control','placeholder'=>'Número de 10 dígitos.'])}}
                                         </div>
                                     </div> 
                                     <div class="col-xs-3 col-sm-3 col-md3">
@@ -90,81 +93,27 @@
                                         </div>
                                     </div>
 
-
-
-                                    {{$usuario->name}}
-
-                                    <div class="col-xs-3 col-sm-3 col-md3">
+                                    <div class="col-xs-8 col-sm-8 col-md8">
                                         <div class="form-group">
-                                            {!! Form::label('region','REGION') !!}
-                                            <select name="region" id="region" class="form-control">
-                                                @foreach ($regiones as $region)
-                                                    <option value=" {{$region->id}} "> {{$region->region}} {{$region->sede}}   </option>
-                                                    {{-- <option value="{{$region->id}}" {{  $region->id == $usuarios->delegaciones->id_region ? 'selected' : ''  }} > {{$region->region}} {{$region->sede}} </option> --}}
-                                                @endforeach
-                                            </select>
+                                            <label for="delegacion">DELEGACIÓN</label>
+                                            {!! Form::text('delegacion', $delegacionUser , ['class'=>'form-control', 'readonly' => 'true']) !!}
                                         </div>
                                     </div>
 
-
-
-                                    {{-- <div class="col-xs-9 col-sm-9 col-md9">
+                                    <div class="col-xs-4 col-sm-4 col-md4">
                                         <div class="form-group">
-                                            {!! Form::label('delegacion','SELECCIONA DELEGACION') !!}
-                                            <select name="delegacion" id="delegacion" class="form-control" disabled>
-                                                <option value="">Selecciona opción</option>
-                                            </select>
+                                            <label for="region">REGIÓN</label>
+                                            {!! Form::text('region', $regionUser , ['class'=>'form-control', 'readonly' => 'true']) !!}
                                         </div>
                                     </div>
-                                    @can('crear-usuario')
+
+                                    @can('crear-usuario-deleg')
                                         <div class="col-xs-12 col-sm-12 col-md12">
                                             <div class="form-group">
                                                 {!! Form::button('Guardar',['class'=>'btn btn-primary','type'=>'submit']) !!}
                                             </div>
                                         </div>
                                     @endcan
- --}}
-
-
-                                    {{-- <div class="col-xs-3 col-sm-3 col-md3">
-                                        <div class="form-group">
-                                            {!! Form::label('region','REGION') !!}
-                                            {!! Form::select('regio', $region->pluck('region','id')  , $usuario->delegaciones->id_region,  ['class' => 'form-control','id'=>'region']) !!}
-                                        </div>
-                                    </div> --}}
-{{-- 
-                                    <div class="col-xs-3 col-sm-3 col-md3">
-                                        <div class="form-group">
-                                            {!! Form::label('delegacion','DELEGACION') !!}
-                                            {!! Form::select('delegacion', $delegacion->pluck('delegacion','id'), $usuario->id_delegacion, ['class' => 'form-control','id'=>'delegacion']) !!}
-                                        </div>
-                                    </div>                                     --}}
-
-
-
-
-
-
-                                    {{-- <hr>
-
-                                    <div>
-                                        <label for="region">País:</label>
-                                        <select name="region" id="region">
-                                            <option value="">Selecciona un país</option>
-                                            @foreach ($regiones as $region)
-                                                <option value="{{ $region->id }}">{{ $region->region }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div>
-                                        <label for="delegacion">delegacion:</label>
-                                        <select name="delegacion" id="delegacion" disabled>
-                                            <option value="">Selecciona una delegacion</option>
-                                        </select>
-                                    </div> --}}
-                                    
-                                    
                                 </div>
                             </form>
                             {{-- {!! Form::close(); !!} --}}

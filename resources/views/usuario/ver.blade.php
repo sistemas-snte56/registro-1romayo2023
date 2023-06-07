@@ -24,7 +24,7 @@
                             @endif
 
                             {{-- {!! Form::open(array('route'=>'usuarios.store', 'method'=>'POST')); !!} --}}
-                            <form action="{{route('usuarios.edit',$usuario->id)}}" method="post">
+                            <form action="{{route('usuario.edit',$usuario->id)}}" method="post">
                                 @csrf
                                 <div class="row">
                                     <div class="col-xs-4 col-sm-4 col-md4">
@@ -106,10 +106,10 @@
 
                                     <div class="col-xs-12 col-sm-12 col-md12">
                                         <div class="form-group">
-                                            <a href="{{route('usuarios.index')}}" class="btn btn-success">Regresar</a>
-                                            @can('editar-usuario')
+                                            <a href="{{route('usuario.index')}}" class="btn btn-success">Regresar</a>
+                                            @can('editar-usuario-deleg')
                                                 
-                                            <a href="{{route('usuarios.edit',$usuario->id)}}" class="btn btn-info">Editar</a>
+                                            <a href="{{route('usuario.edit',$usuario->id)}}" class="btn btn-info">Editar</a>
                                             @endcan
                                         </div>
                                     </div>

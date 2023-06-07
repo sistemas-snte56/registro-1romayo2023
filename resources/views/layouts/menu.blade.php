@@ -4,8 +4,8 @@
     </a>
 </li>
 
-{{ $user = Auth::user()->name;}}
-{{$roleName = Auth::user()->getRoleNames()->first();}}
+{{-- {{ $user = Auth::user()->name;}}
+{{$roleName = Auth::user()->getRoleNames()->first();}} --}}
 
 
 
@@ -78,4 +78,9 @@
     @endcan
 @elseif(Auth::user()->getRoleNames()->first() === "Editor")
     <li class="menu-header"><span> USUARIO </span></li>
+        <li class="side-menus {{ Request::is('usuario.index') ? 'active' : '' }}">
+            <a class="nav-link" href="{{route('usuario.index')}}">
+                <i class="fas fa-table"></i><span>Usuarios</span>
+            </a>
+        </li>
 @endif
