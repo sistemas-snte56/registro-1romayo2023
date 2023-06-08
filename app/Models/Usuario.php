@@ -38,4 +38,8 @@ class Usuario extends Model
     public function nivel() {
         return $this->belongsTo(Nivel::class, 'id_nivel','id');
     }        
+
+    public function user() {
+        return $this->belongsTo(User::class, 'id_users','id');
+    }
 }

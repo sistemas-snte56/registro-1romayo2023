@@ -27,6 +27,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_nivel');
             $table->unsignedBigInteger('id_delegacion');
             $table->unsignedBigInteger('id_users');
+            // $table->unsignedBigInteger('id_users')->nullable()->default(null);;
             $table->timestamps();
 
             $table->foreign('id_genero')->references('id')->on('genero');

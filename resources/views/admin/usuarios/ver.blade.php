@@ -113,6 +113,12 @@
                                             @endcan
                                         </div>
                                     </div>
+
+                                    Guardado por: {!! $usuario->user->name; !!}, &nbsp; {!! $usuario->delegaciones->delegacion !!}
+{{-- 
+                                    @php
+                                        dd($usuario)->all();
+                                    @endphp --}}
                                 </div>
                             </form>
                             {{-- {!! Form::close(); !!} --}}

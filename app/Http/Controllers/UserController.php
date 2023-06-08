@@ -32,7 +32,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(60);
+        // $users = User::paginate(60);
+        $users = User::where('activo',true)->paginate(60);
         return view ('admin.users.index',['users'=>$users]);
     }
 
@@ -158,7 +159,12 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::find($id)->delete();
+        // User::find($id)->delete();
+        // return redirect()->route('users.index');
+        
+        $user = User::find($id);
+        $user->activo = false;
+        $user->save();
         return redirect()->route('users.index');
     }
 }
