@@ -4,9 +4,10 @@
     </a>
 </li>
 
-{{-- {{ $user = Auth::user()->name;}}
-{{$roleName = Auth::user()->getRoleNames()->first();}} --}}
-
+{{--
+{{ $user = Auth::user()->name;}}<br>
+{{$roleName = Auth::user()->getRoleNames()->first();}}
+--}}
 
 
 @if (Auth::user()->getRoleNames()->first() === "Administrador")

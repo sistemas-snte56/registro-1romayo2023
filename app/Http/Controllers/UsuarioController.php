@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUsuarioRequest;
 use App\Http\Requests\UpdateUsuarioRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+
 
 class UsuarioController extends Controller
 {
@@ -30,6 +33,25 @@ class UsuarioController extends Controller
      */
     public function index()
     {
+
+        $usuarios = Usuario::paginate(40);
+        $regiones = Region::all();
+        return view('admin.usuarios.index',['usuarios'=>$usuarios, 'regiones' =>$regiones]);  
+
+
+        /*$roleName = Auth::user()->getRoleNames()->first();
+
+        if ($roleName == 'Supervisor') {
+
+            $usuarios = Usuario::where()
+            
+        } else {
+            $usuarios = Usuario::paginate(40);
+            $regiones = Region::all();
+            return view('admin.usuarios.index',['usuarios'=>$usuarios, 'regiones' =>$regiones]);        
+        }*/
+
+
         // $usuarios = Usuario::where('id_users',\Illuminate\Support\Facades\Auth::user()->id)->paginate(20);
         // $usuarios = DB::table('usuarios')->where('id_users',\Illuminate\Support\Facades\Auth::user()->id);
 
@@ -37,14 +59,13 @@ class UsuarioController extends Controller
         //                         //->orWhere('id_users', 1)
         //                         ->paginate(50);
 
-        $usuarios = Usuario::paginate(20);
-        $regiones = Region::all();
+        // $roleName = Auth::user()->getRoleNames()->first();
 
-        //dd($usuarios);
+        // dd($roleName)->all();
         // $usuario->id_users = \Illuminate\Support\Facades\Auth::user()->id;    
 
-        //dd($usuarios);
-        return view('admin.usuarios.index',['usuarios'=>$usuarios, 'regiones' =>$regiones]);
+        // //dd($usuarios);
+
     }
 
 
@@ -138,7 +159,8 @@ class UsuarioController extends Controller
             $usuario->npersonal = $request->input('npersonal');
             $usuario->id_nivel = $request->input('nivel');
             $usuario->id_delegacion = $request->input('delegacion');      
-            $usuario->id_users = \Illuminate\Support\Facades\Auth::user()->id;      
+            $usuario->id_users = \Illuminate\Support\Facades\Auth::user()->id;     
+            $usuario->slug = Str::slug($usuario->nombre . ' ' . $usuario->apaterno . ' ' . $usuario->amaterno); 
             $usuario->save();  
 
 
@@ -235,7 +257,7 @@ class UsuarioController extends Controller
         $usuario->npersonal = $request->input('npersonal');
         $usuario->id_nivel = $request->input('nivel');
         $usuario->id_delegacion = $request->input('delegacion');   
-        
+        $usuario->slug = Str::slug($usuario->nombre . ' ' . $usuario->apaterno . ' ' . $usuario->amaterno);        
         
         //$usuario->id_users = \Illuminate\Support\Facades\Auth::user()->id;      
         

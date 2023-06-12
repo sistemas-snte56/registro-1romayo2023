@@ -11,6 +11,7 @@ use App\Models\Region;
 use App\Models\Delegacion;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 
 class EdicionController extends Controller
@@ -144,12 +145,11 @@ ID: {{ $user = Auth::user()->id;}} <br>
         $usuario->id_nivel = $request->input('nivel');
         $usuario->id_delegacion = Auth::user()->delegaciones->id;      
         $usuario->id_users = Auth::user()->id;      
+        $usuario->slug = Str::slug($usuario->nombre . ' ' . $usuario->apaterno . ' ' . $usuario->amaterno);
 
         // dd($usuario)->all();
 
-
         $usuario->save();  
-
 
         return redirect()->route('usuario.index')->with('success', 'Usuario registrado satisfactoriamente.');
         
@@ -272,6 +272,7 @@ ID: {{ $user = Auth::user()->id;}} <br>
         $usuario->id_nivel = $request->input('nivel');
         $usuario->id_delegacion = Auth::user()->delegaciones->id;      
         $usuario->id_users = Auth::user()->id;      
+        $usuario->slug = Str::slug($usuario->nombre . ' ' . $usuario->apaterno . ' ' . $usuario->amaterno);
 
         // dd($usuario)->all();
 
