@@ -52,11 +52,11 @@
                                             <td>{{ $usuario->delegaciones->regiones->region }}
                                                 {{ $usuario->delegaciones->regiones->sede }} </td>
                                             <td>
-                                                <a href="{{ route('usuarios.show', $usuario->id) }}"
+                                                <a href="{{ route('usuarios.show', $usuario->slug) }}"
                                                     class="btn btn-success">Ver</a>
 
                                                 @can('editar-usuario')
-                                                    <a href="{{ route('usuarios.edit', $usuario->id) }}"
+                                                    <a href="{{ route('usuarios.edit', $usuario->slug) }}"
                                                         class="btn btn-info">Editar</a>
                                                 @endcan
 
@@ -64,7 +64,7 @@
                                                 @can('borrar-usuario')
                                                     {!! Form::open([
                                                         'method' => 'DELETE',
-                                                        'route' => ['usuarios.destroy', $usuario->id],
+                                                        'route' => ['usuarios.destroy', $usuario->slug],
                                                         'style' => 'display:inline',
                                                     ]) !!}
                                                     {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!}

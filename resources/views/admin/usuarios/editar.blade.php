@@ -24,7 +24,7 @@
                             @endif
 
                             {{-- {!! Form::open(array('route'=>'usuarios.store', 'method'=>'POST')); !!} --}}
-                            {!! Form::model($usuario, ['method' => 'PATCH' , 'route' => ['usuarios.update', $usuario->id] ]) !!}
+                            {!! Form::model($usuario, ['method' => 'PATCH' , 'route' => ['usuarios.update', $usuario->slug] ]) !!}
 
                                 <div class="row">
 
@@ -115,7 +115,7 @@
                                     <div class="col-xs-12 col-sm-12 col-md12">
                                         <div class="form-group">
                                             @can('ver-usuario')
-                                                <a href="{{route('usuarios.show',$usuario->id)}}" class="btn btn-success">Regresar</a>
+                                                <a href="{{route('usuarios.show',$usuario->slug)}}" class="btn btn-success">Regresar</a>
                                             @endcan
                                             @can('editar-usuario')
                                             {!! Form::button('Actualizar', ['class' => 'btn btn-primary', 'type' => 'submit']) !!}

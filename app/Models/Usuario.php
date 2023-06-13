@@ -25,6 +25,7 @@ class Usuario extends Model
         'id_nivel',
         'id_delegacion',
         'id_users',
+        'slug',
     ];
 
     public function delegaciones() {

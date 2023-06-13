@@ -109,7 +109,7 @@
                                             <a href="{{route('usuarios.index')}}" class="btn btn-success">Regresar</a>
                                             @can('editar-usuario')
                                                 
-                                            <a href="{{route('usuarios.edit',$usuario->id)}}" class="btn btn-info">Editar</a>
+                                            <a href="{{route('usuarios.edit',$usuario->slug)}}" class="btn btn-info">Editar</a>
                                             @endcan
                                         </div>
                                     </div>

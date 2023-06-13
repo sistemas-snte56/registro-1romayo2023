@@ -176,7 +176,8 @@ class UsuarioController extends Controller
      */
     public function show(Usuario $usuario)
     {
-        $usuario = Usuario::find($usuario->id);
+        // $usuario = Usuario::find($usuario->id);
+        //$usuario = Usuario::findOfFile($usuario->id);
         // dd($usuario);
         return view('admin.usuarios.ver',['usuario'=>$usuario]);
     }
@@ -189,7 +190,7 @@ class UsuarioController extends Controller
      */
     public function edit(Usuario $usuario)
     {
-        $usuario = Usuario::find($usuario->id);
+        // $usuario = Usuario::find($usuario->id);
         $genero = Genero::all();
         $nivel = Nivel::all();
         $region = Region::all();

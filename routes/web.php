@@ -44,7 +44,15 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::resource('delegaciones', DelegacionController::class)->except('show');
     Route::resource('roles', RolController::class)->except('show');
     Route::resource('users', UserController::class)->except('show');
-    Route::resource('usuarios', UsuarioController::class);
+    
+    // Route::resource('usuarios', UsuarioController::class);
+    Route::get('usuarios', 'UsuarioController@index')->name('usuarios.index');
+    Route::get('usuarios/create','UsuarioController@create')->name('usuarios.create');
+    Route::post('usuarios', 'UsuarioController@store')->name('usuarios.store');
+    Route::get('usuarios/{usuario:slug}','UsuarioController@show')->name('usuarios.show');
+    Route::get('usuarios/{usuario:slug}/edit','UsuarioController@edit')->name('usuarios.edit');
+    Route::put('usuarios/{usuario:slug}','UsuarioController@update')->name('usuarios.update');
+    Route::delete('usuarios/{usuario:slug}','UsuarioController@destroy')->name('usuarios.destroy');
     Route::get('usuarios/region/{id}','UsuarioController@obtenerDelegaciones')->middleware('regiones.middleware');
 });
 
