@@ -41,7 +41,17 @@ Auth::routes();
 
 Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::resource('regiones', RegionController::class)->except(['create','store','show','edit','update','destroy']);
-    Route::resource('delegaciones', DelegacionController::class)->except('show');
+    // Route::resource('delegaciones', DelegacionController::class)->except('show');
+    Route::get('delegaciones', 'DelegacionController@index')->name('delegaciones.index');
+    Route::get('delegaciones/create','DelegacionController@create')->name('delegaciones.create');
+    Route::post('delegaciones', 'DelegacionController@store')->name('delegaciones.store');
+    Route::get('delegaciones/{delegacion:slug}','DelegacionController@show')->name('delegaciones.show');
+    Route::get('delegaciones/{delegacion:slug}/edit','DelegacionController@edit')->name('delegaciones.edit');
+    Route::patch('delegaciones/{delegacion:slug}','DelegacionController@update')->name('delegaciones.update');
+    Route::delete('delegaciones/{delegacion:slug}','DelegacionController@destroy')->name('delegaciones.destroy');
+
+
+
     Route::resource('roles', RolController::class)->except('show');
     Route::resource('users', UserController::class)->except('show');
     
@@ -51,7 +61,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::post('usuarios', 'UsuarioController@store')->name('usuarios.store');
     Route::get('usuarios/{usuario:slug}','UsuarioController@show')->name('usuarios.show');
     Route::get('usuarios/{usuario:slug}/edit','UsuarioController@edit')->name('usuarios.edit');
-    Route::put('usuarios/{usuario:slug}','UsuarioController@update')->name('usuarios.update');
+    Route::patch('usuarios/{usuario:slug}','UsuarioController@update')->name('usuarios.update');
     Route::delete('usuarios/{usuario:slug}','UsuarioController@destroy')->name('usuarios.destroy');
     Route::get('usuarios/region/{id}','UsuarioController@obtenerDelegaciones')->middleware('regiones.middleware');
 });

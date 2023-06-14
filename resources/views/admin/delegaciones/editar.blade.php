@@ -21,7 +21,7 @@
                                 </div>                                
                             @endif
                             {{-- {!! Form::model($role('method'=>'PATCH', 'route'=>['roles.update',$role->id] )); !!} --}}
-                            {!! Form::model($delegacion, ['method' => 'PATCH' , 'route' => ['delegaciones.update', $delegacion->id] ]) !!}
+                            {!! Form::model($delegacion, ['method' => 'PATCH' , 'route' => ['delegaciones.update', $delegacion->slug] ]) !!}
                                 <div class="row">
 
                                     <div class="col-xs-12 col-sm-12 col-md12">

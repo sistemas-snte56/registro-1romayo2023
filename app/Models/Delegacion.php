@@ -11,6 +11,15 @@ class Delegacion extends Model
 
     protected $table = 'delegaciones';
 
+    protected $fillable = [
+        'nomenclatura',
+        'delegacion',
+        'nivel',
+        'sede',
+        'id_region',
+        'slug'
+    ];    
+
     public function regiones()
     {
         return $this->belongsTo(Region::class,'id_region','id');
@@ -21,4 +30,13 @@ class Delegacion extends Model
     {
         return Delegacion::orderBy('id','ASC')->where('id_region','=',$id)->get();
     }
+
+    // public static function boot()
+    // {
+    //     parent::boot();
+
+    //     static::creating(function ($model) {
+    //         $model->slug = Str::slug($model->name, '-');
+    //     });
+    // }    
 }

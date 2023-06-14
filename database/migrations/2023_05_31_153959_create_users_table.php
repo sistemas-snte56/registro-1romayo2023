@@ -20,7 +20,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->unsignedBigInteger('id_delegacion');   
-            $table->boolean('activo')->default(true);         
+            $table->boolean('activo')->default(true);   
+            $table->string('slug',150)->nullable();      
             $table->rememberToken();
             $table->timestamps();
 

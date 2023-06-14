@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('nivel',150);
             $table->string('sede',150);
             $table->unsignedBigInteger('id_region');
+            $table->string('slug',150)->nullable();
             $table->timestamps();
 
             $table->foreign('id_region')->references('id')->on('regiones');   

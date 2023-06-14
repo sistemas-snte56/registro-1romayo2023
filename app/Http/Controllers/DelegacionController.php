@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateDelegacionRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Region;
+use Illuminate\Support\Str;
 
 class DelegacionController extends Controller
 {
@@ -73,6 +74,7 @@ class DelegacionController extends Controller
         $delegacion->nivel = $request->input('nivel');
         $delegacion->sede = $request->input('sede');
         $delegacion->id_region = $request->input('region');
+        $delegacion->slug = Str::slug($delegacion->delegacion);         
         $delegacion->save();
 
         return redirect()->route('delegaciones.index')->with('success', 'Se realizó el registro satisfactoriamente.');
@@ -85,10 +87,10 @@ class DelegacionController extends Controller
      * @param  \App\Models\Delegacion  $delegacion
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Delegacion $delegacion)
     {
         $regiones = Region::all();
-        $delegacion = Delegacion::find($id);
+        // $delegacion = Delegacion::find($id);
         return view('admin.delegaciones.editar',['regiones'=>$regiones,'delegacion'=>$delegacion]);
     }
 
@@ -99,13 +101,13 @@ class DelegacionController extends Controller
      * @param  \App\Models\Delegacion  $delegacion
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateDelegacionRequest $request, Delegacion $delegacion, $id)
+    public function update(UpdateDelegacionRequest $request, Delegacion $delegacion)
     {
-        $delegacion = Delegacion::find($id);
+        $delegacion = Delegacion::find($delegacion->id);
         
         $request->validate([
             'nomenclatura' => 'required',
-            'delegacion' => ['required', 'unique:delegaciones,delegacion,'.$id],
+            'delegacion' => ['required', 'unique:delegaciones,delegacion,'.$delegacion->id],
             'nivel' => 'required',
             'sede' => 'required',
             'region'=>'required',       

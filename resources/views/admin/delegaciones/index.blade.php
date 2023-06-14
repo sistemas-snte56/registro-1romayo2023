@@ -54,7 +54,7 @@
                                             <td>{{ $delegacion->regiones->region }} {{ $delegacion->regiones->sede }} </td>
                                             @can('editar-delegacion')
                                                 <td>
-                                                    <a href="{{ route('delegaciones.edit', $delegacion->id) }}"
+                                                    <a href="{{ route('delegaciones.edit', $delegacion->slug) }}"
                                                         class="btn btn-info">Editar</a>
                                                 </td>
                                             @endcan
@@ -63,7 +63,7 @@
                                                 <td>
                                                     {!! Form::open([
                                                         'method' => 'DELETE',
-                                                        'route' => ['delegaciones.destroy', $delegacion->id],
+                                                        'route' => ['delegaciones.destroy', $delegacion->slug],
                                                         'style' => 'display:inline',
                                                     ]) !!}
                                                     {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!}
