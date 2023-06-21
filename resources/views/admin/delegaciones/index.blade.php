@@ -27,7 +27,7 @@
                                 </div>
                             @endif
                             @can('crear-delegacion')
-                                <a href="{{ route('delegaciones.create') }}" class="btn btn-warning">Nuevo usuario</a>
+                                <a href="{{ route('delegaciones.create') }}" class="btn btn-warning">Nueva Delegación</a>
                             @endcan
                             <div class="pagination justify-content-end">
                                 {!! $delegaciones->links() !!}
@@ -78,7 +78,7 @@
                                 {!! $delegaciones->links() !!}
                             </div>
                             @can('crear-delegacion')
-                                <a href="{{ route('delegaciones.create') }}" class="btn btn-warning">Nuevo usuario</a>
+                                <a href="{{ route('delegaciones.create') }}" class="btn btn-warning">Nueva Delegación</a>
                             @endcan
                         </div>
                     </div>

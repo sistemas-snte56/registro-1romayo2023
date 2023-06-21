@@ -114,7 +114,7 @@
                                         </div>
                                     </div>
 
-                                    Guardado por: {!! $usuario->user->name; !!}, &nbsp; {!! $usuario->delegaciones->delegacion !!}
+                                    Guardado por: {!! $usuario->user->name; !!}, &nbsp; {!! $usuario->user->delegaciones->delegacion !!}
 {{-- 
                                     @php
                                         dd($usuario)->all();

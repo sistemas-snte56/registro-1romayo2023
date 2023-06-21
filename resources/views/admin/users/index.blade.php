@@ -58,7 +58,7 @@
                                             </td>
                                             <td>
                                                 @can('editar-user')
-                                                    <a href="{{ route('users.edit', $user->id) }}"
+                                                    <a href="{{ route('users.edit',$user->slug) }}"
                                                         class="btn btn-info">Editar</a>
                                                 @endcan
 

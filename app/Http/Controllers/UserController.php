@@ -11,6 +11,7 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -62,7 +63,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //abort(404);
-        //dd($request);
+        // dd($request);
 
         $request->validate([
             'name'=>'required',
@@ -84,13 +85,13 @@ class UserController extends Controller
         $user->password = Hash::make($request->input('password'));
         $user->assignRole($request->input('roles'));
         $user->id_delegacion = $request->input('delegacion');
+        $user->slug = Str::slug($user->name);
         
 
-        // dd($user);
+        //dd($user);
         $user->save();
 
         return redirect()->route('users.index')->with('success','Usuario Registrado satisfactoriamente');
-
             
     }
 
@@ -99,10 +100,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
         // Capturar datos de tabla y encontrar el ID
-        $user = User::find($id);
+        // $user = User::find($id);
         $roles = Role::pluck('name','name')->all();
         $userRoles = $user->roles->pluck('name','name')->all();
         $region = Region::all();
@@ -118,14 +119,14 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
 
-        $user = User::find($id);
+        $user = User::find($user->id);
 
         $this->validate($request,[
             'name'=>'required',
-            'email'=> ['required', 'email', 'unique:users,email,'. $id],
+            'email'=> ['required', 'email', 'unique:users,email,'. $user->id],
             'password'=>'same:confirm-password',
             'roles'=>'required',            
         ]);
@@ -139,13 +140,14 @@ class UserController extends Controller
 
         }
 
-        DB::table('model_has_roles')->where('model_id',$id)->delete();
+        DB::table('model_has_roles')->where('model_id',$user->id)->delete();
 
         $user->assignRole($request->input('roles'));
         
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->id_delegacion = $request->input('delegacion');
+        $user->slug = Str::slug($user->name);
 
         $user->save();
 
