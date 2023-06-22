@@ -73,17 +73,17 @@
                                             <td>{{ $usuario->nivel->nivel }}</td>
                                             <td>
                                                 @can('ver-usuario-deleg')
-                                                    <a href="{{ route('usuario.show', $usuario->id) }}" class="btn btn-success">Ver</a>
+                                                    <a href="{{ route('usuario.show', $usuario->slug) }}" class="btn btn-success">Ver</a>
                                                 @endcan
 
                                                 @can('editar-usuario-deleg')
-                                                    <a href="{{ route('usuario.edit', $usuario->id) }}" class="btn btn-info">Editar</a>
+                                                    <a href="{{ route('usuario.edit', $usuario->slug) }}" class="btn btn-info">Editar</a>
                                                 @endcan
 
                                                 @can('borrar-usuario-deleg')
                                                     {!! Form::open([
                                                         'method' => 'DELETE',
-                                                        'route' => ['usuario.destroy', $usuario->id],
+                                                        'route' => ['usuario.destroy', $usuario->slug],
                                                         'style' => 'display:inline',
                                                     ]) !!}
                                                     {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!}

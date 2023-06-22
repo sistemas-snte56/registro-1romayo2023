@@ -107,9 +107,8 @@
                                     <div class="col-xs-12 col-sm-12 col-md12">
                                         <div class="form-group">
                                             <a href="{{route('usuario.index')}}" class="btn btn-success">Regresar</a>
-                                            @can('editar-usuario-deleg')
-                                                
-                                            <a href="{{route('usuario.edit',$usuario->id)}}" class="btn btn-info">Editar</a>
+                                            @can('editar-usuario-deleg')                                                
+                                            <a href="{{route('usuario.edit',$usuario->slug)}}" class="btn btn-info">Editar</a>
                                             @endcan
                                         </div>
                                     </div>

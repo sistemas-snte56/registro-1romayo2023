@@ -74,5 +74,12 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
 });
 
 Route::middleware(['auth'])->group(function(){
-    Route::resource('usuario',EdicionController::class);
+    // Route::resource('usuario',EdicionController::class);
+    Route::get('usuario', 'EdicionController@index')->name('usuario.index');
+    Route::get('usuario/create','EdicionController@create')->name('usuario.create');
+    Route::post('usuario', 'EdicionController@store')->name('usuario.store');
+    Route::get('usuario/{usuario:slug}','EdicionController@show')->name('usuario.show');
+    Route::get('usuario/{usuario:slug}/edit','EdicionController@edit')->name('usuario.edit');
+    Route::patch('usuario/{usuario:slug}','EdicionController@update')->name('usuario.update');
+    Route::delete('usuario/{usuario:slug}','EdicionController@destroy')->name('usuario.destroy');    
 });
