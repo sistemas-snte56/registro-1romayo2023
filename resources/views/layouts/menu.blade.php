@@ -1,6 +1,6 @@
 <li class="side-menus {{ Request::is('home') ? 'active' : '' }}">
-    <a class="nav-link" href="/">
-        <i class=" fas fa-building"></i><span>Dashboard</span>
+    <a class="nav-link" href="/home">
+        <i class=" fas fa-building"></i><span>Panel principal</span>
     </a>
 </li>
 
@@ -81,7 +81,7 @@
     <li class="menu-header"><span> USUARIO </span></li>
         <li class="side-menus {{ Request::is('usuario.index') ? 'active' : '' }}">
             <a class="nav-link" href="{{route('usuario.index')}}">
-                <i class="fas fa-table"></i><span>Usuarios</span>
+                <i class="fas fa-table"></i><span>Administrar Usuarios</span>
             </a>
         </li>
 @endif

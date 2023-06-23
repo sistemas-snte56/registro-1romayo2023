@@ -1,14 +1,3 @@
-@extends('layouts.app')
-
-@section('content')
-    <section class="section">
-        <div class="section-header">
-            <h3 class="page__heading">Delegaciones</h3>
-        </div>
-        <div class="section-body">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
                         <div class="card-body">
                             @if (Session::has('success'))
                                 <div class="alert alert-success alert-dismissible" role="alert">
@@ -33,10 +22,7 @@
 
                             <div class="row mb-3">
                                 <div class="col-md-12">
-                                    <form action="{{route('delegaciones.index')}}" method="get">
-                                        <a href="{{route('delegaciones.index')}}" class="btn btn-primary mb-2" style="float: right; margin-right:0px; margin-top:3px">Limpiar</a> 
-                                        <input type="search" name="search" wire:model="searchTerm" class="form-control w-25" placeholder="Buscar Delegación / C.T." style="float: right; margin-right:18px"> 
-                                    </form>
+                                    <input type="search" wire:model="searchTerm" class="form-control w-25" placeholder="Buscar" style="float: right">
                                 </div>
                             </div>
 
@@ -105,10 +91,3 @@
                                 <a href="{{ route('delegaciones.create') }}" class="btn btn-warning">Nueva Delegación</a>
                             @endcan
                         </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-@endsection

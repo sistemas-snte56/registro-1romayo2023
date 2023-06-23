@@ -3,17 +3,36 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h3 class="page__heading">Usuarios</h3>
-
+            <h3 class="page__heading">Usuario de Administración</h3>
         </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
-
-
-
-
+                        <div class="card-header">
+                            <table class="table">
+                                <thead>
+                                    <th>NOMBRE</th>
+                                    <th style="text-transform: uppercase" >{!! $user->delegaciones->nomenclatura !!}</th>
+                                    <th>SEDE</th>
+                                    <th>REGION</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{!! $user->name; !!}</td>
+                                        <td>
+                                            {!! $user->delegaciones->delegacion !!}
+                                            &nbsp;{!! $user->delegaciones->nivel !!} 
+                                        </td>
+                                        <td>{!! $user->delegaciones->sede !!} </td>
+                                        <td>
+                                            {!! $user->delegaciones->regiones->region !!} —
+                                            {!! $user->delegaciones->regiones->sede !!}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                         <div class="card-body">
 
                             @if (Session::has('success'))
@@ -26,38 +45,6 @@
                             @endif
 
 
-{{-- 
-
-                            @can('crear-usuario')
-                                <a href="{{ route('usuarios.create') }}" class="btn btn-warning" style="float: right; margin-right:0px; margin-left:10px">Nuevo usuario</a>
-                            @endcan --}}
-
-
-
-
-                            @can('crear-delegacion')
-                                <a href="{{ route('usuarios.create') }}" class="btn btn-warning" style="float: left" >Nuevo usuario</a>
-                            @endcan
-
-                            <div class="row mb-3">
-                                <div class="col-md-12">
-                                    <form action="{{route('usuarios.index')}}" method="get">
-                                        <a href="{{route('usuarios.index')}}" class="btn btn-primary mb-2" style="float: right; margin-right:0px; margin-top:3px">Limpiar</a> 
-                                        <input type="search" name="search" wire:model="searchTerm" class="form-control w-25" placeholder="Buscar" style="float: right; margin-right:18px"> 
-                                    </form>
-                                </div>
-                            </div>
-
-
-
-                            <caption>
-                                
-                                <div class="pagination justify-content-end">
-
-                                    {!! $usuarios->links() !!}
-                                </div>
-                            </caption>
-
                             <table class="table table-striped mt-2">
                                 <thead style="background-color: rgb(255, 164, 38);">
                                     <th style="color: white; text-shadow: 1px 1px 2px black">NO</th>
@@ -68,11 +55,10 @@
                                     <th style="color: white; text-shadow: 1px 1px 2px black">ACCIONES</th>
                                 </thead>
                                 <tbody>
-                                    @if(count($usuarios) > 0)
-                                        @foreach ($usuarios as $usuario)
+                                    @if ($usuarios->count() > 0)
+                                        @foreach ($usuarios as $key => $usuario)
                                             <tr>
-                                                {{-- //TODO Colocando un listado progresivo por páginas --}}
-                                                <td>{{ $loop->index + 1 + ($usuarios->perPage() * ($usuarios->currentPage() - 1)) }}</td>
+                                                <td> {{ $key + 1 }} </td>
                                                 <td>{{ $usuario->nombre }} {{ $usuario->apaterno }} {{ $usuario->amaterno }} </td>
                                                 <td>{{ $usuario->npersonal }} </td>
                                                 <td>{{ $usuario->delegaciones->delegacion }} {{ $usuario->delegaciones->sede }} </td>
@@ -103,19 +89,15 @@
                                     @else
                                         <tr>
                                             <td colspan="6">
-                                                <span style="text-transform: uppercase">
-                                                    No se encuentran resultados para "<strong>{{ $searchTerm }}</strong>".
-                                                </span>
+                                                No se encuentran resultados para "{{ $searchTerm }}"
                                             </td>
                                         </tr>
                                     @endif
                                 </tbody>
                             </table>
-                            <tfoot>
-                                <div class="pagination justify-content-end">
-                                    {!! $usuarios->links() !!}
-                                </div>
-                            </tfoot>
+                            <div class="pagination justify-content-end">
+                                {!! $usuarios->links() !!}
+                            </div>
                         </div>
                     </div>
                 </div>

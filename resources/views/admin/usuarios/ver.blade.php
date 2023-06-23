@@ -114,7 +114,11 @@
                                         </div>
                                     </div>
 
-                                    Guardado por: {!! $usuario->user->name; !!}, &nbsp; {!! $usuario->user->delegaciones->delegacion !!}
+                                    Guardado por: &nbsp;
+                                    <a href="{{route('users.show',$usuario->user->slug)}}">
+                                        {!! $usuario->user->name; !!}, &nbsp; {!! $usuario->user->delegaciones->delegacion !!}
+                                    </a>
+                                    
 {{-- 
                                     @php
                                         dd($usuario)->all();

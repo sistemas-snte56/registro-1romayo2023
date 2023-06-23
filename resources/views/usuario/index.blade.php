@@ -12,18 +12,37 @@
                     <div class="card">
                         <div class="card-body">
                             <caption style="padding: 6px 0 45px" >
-                                <table class="table table-striped mt-2">
-                                    <thead>
-                                        <th>SECRETARIO/A GENERAL O REPRESENTANTE DE C.T.</th>
-                                        <th>DELEGACIÓN O CENTRO DE TRABAJO</th>
-                                        <th>REGIÓN</th>
-                                    </thead>
-                                    <tbody>
-                                        <td>{{ $user = Auth::user()->name;}}</td>
-                                        <td>{{ $user = Auth::user()->delegaciones->delegacion;}} &nbsp;&nbsp; {{ $user = Auth::user()->delegaciones->sede;}}</td>
-                                        <td>{{ $user = Auth::user()->delegaciones->regiones->region;}} &nbsp;&nbsp; {{ $user = Auth::user()->delegaciones->regiones->sede;}} </td>
-                                    </tbody>
-                                </table>
+                                <div class="row">
+                                    <div class="col-md-10 col-xl-10">
+                                        <table class="table table-striped mt-2">
+                                            <thead>
+                                                <th>SECRETARIO/A GENERAL O REPRESENTANTE DE C.T.</th>
+                                                <th><span style="text-transform: uppercase" > {{Auth::user()->delegaciones->nomenclatura}} </span></th>
+                                                <th>REGIÓN</th>
+                                            </thead>
+                                            <tbody>
+                                                <td>{{ Auth::user()->name;}}</td>
+                                                <td>{{ Auth::user()->delegaciones->delegacion;}}&nbsp;|&nbsp;
+                                                    {{ Auth::user()->delegaciones->nivel;}}&nbsp;|&nbsp;
+                                                    {{ Auth::user()->delegaciones->sede;}}</td>
+                                                <td>{{ Auth::user()->delegaciones->regiones->region;}} &nbsp;&nbsp; {{ Auth::user()->delegaciones->regiones->sede;}} </td>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
                             </caption>
 
                             @if (Session::has('success'))
@@ -62,9 +81,9 @@
                                     <th style="color: white; text-shadow: 1px 1px 2px black">ACCIONES</th>
                                 </thead>
                                 <tbody>
-                                    @foreach ($usuarios as $key => $usuario)
+                                    @foreach ($usuarios as $usuario)
                                         <tr>
-                                            <td> {{ $key + 1 }} </td>
+                                            <td>{{ $loop->index + 1 + ($usuarios->perPage() * ($usuarios->currentPage() - 1)) }}</td>
                                             <td>{{ $usuario->nombre }} {{ $usuario->apaterno }} {{ $usuario->amaterno }}</td>
                                             <td>{{ $usuario->genero->genero }}</td>
                                             <td>{{ $usuario->npersonal }}</td>

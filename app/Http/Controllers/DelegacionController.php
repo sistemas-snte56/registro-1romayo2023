@@ -25,11 +25,25 @@ class DelegacionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $searchTerm = $request->input('search');
+        
         $regiones = Region::all();
-        $delegaciones = Delegacion::paginate(50);
-        return view('admin.delegaciones.index',['regiones'=>$regiones,'delegaciones'=>$delegaciones]);
+        $delegaciones = Delegacion::where('delegacion' , 'LIKE', '%' . $searchTerm . '%')
+                                    ->OrWhere('nivel' , 'LIKE', '%' . $searchTerm . '%')
+                                    ->OrWhere('sede' , 'LIKE', '%' . $searchTerm . '%')->paginate(50);
+
+
+
+        // $delegaciones = Delegacion::whereHas( 'regiones', function ($query) use ($searchTerm) {
+        //     $query->where('delegacion' , 'LIKE', '%' . $searchTerm . '%')
+        //                             ->OrWhere('nivel' , 'LIKE', '%' . $searchTerm . '%')
+        //                             ->OrWhere('sede' , 'LIKE', '%' . $searchTerm . '%')->paginate(50);
+        // } );
+
+
+        return view('admin.delegaciones.index',['regiones'=>$regiones,'delegaciones'=>$delegaciones, 'searchTerm'=>$searchTerm]);
     }
 
     /**

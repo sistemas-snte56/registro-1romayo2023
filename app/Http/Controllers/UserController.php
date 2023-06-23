@@ -7,6 +7,7 @@ use Illuminate\Validation\Rule;
 use App\Models\User;
 use App\Models\Region;
 use App\Models\Delegacion;
+use App\Models\Usuario;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -31,11 +32,17 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // dd($request->input('search'));
         // $users = User::paginate(60);
-        $users = User::where('activo',true)->paginate(60);
-        return view ('admin.users.index',['users'=>$users]);
+        $searchTerm = $request->input('search');
+        $users = User::where('activo',true)
+                        ->where('name','LIKE','%'.$searchTerm.'%')
+                        ->paginate(50);
+
+        // $users = User::where('name','LIKE','%'.$searchTerm.'%')->paginate(10);
+        return view ('admin.users.index',['users'=>$users, 'searchTerm'=>$searchTerm]);
     }
 
 
@@ -94,6 +101,29 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success','Usuario Registrado satisfactoriamente');
             
     }
+
+
+
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function show(User $user)
+    {
+        $usuarios = Usuario::where('id_users',$user->id)->paginate(30);
+        return view('admin.users.ver',compact('usuarios','user'));
+    }
+
+
+
+
+
+
+
 
     /**
      * Show the form for editing the resource.

@@ -31,40 +31,28 @@ class UsuarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $searchTerm = $request->input('search');
 
-        $usuarios = Usuario::paginate(40);
+        $usuarios = Usuario::where('nombre', 'LIKE', '%' . $searchTerm .'%')
+                            ->orWhere('apaterno', 'LIKE', '%' . $searchTerm .'%')
+                            ->orWhere('amaterno', 'LIKE', '%' . $searchTerm .'%')
+                            ->orWhere('npersonal', 'LIKE', '%' . $searchTerm .'%')
+                            ->paginate(40);
         $regiones = Region::all();
-        return view('admin.usuarios.index',['usuarios'=>$usuarios, 'regiones' =>$regiones]);  
 
 
-        /*$roleName = Auth::user()->getRoleNames()->first();
+/*
+$searchTerm = 'John';
 
-        if ($roleName == 'Supervisor') {
+$users = User::where('name', 'LIKE', '%'.$searchTerm.'%')
+             ->orWhere('last_name', 'LIKE', '%'.$searchTerm.'%')
+             ->orWhere('email', 'LIKE', '%'.$searchTerm.'%')
+             ->get();*/
 
-            $usuarios = Usuario::where()
-            
-        } else {
-            $usuarios = Usuario::paginate(40);
-            $regiones = Region::all();
-            return view('admin.usuarios.index',['usuarios'=>$usuarios, 'regiones' =>$regiones]);        
-        }*/
+        return view('admin.usuarios.index',['usuarios'=>$usuarios, 'regiones' =>$regiones, 'searchTerm' => $searchTerm]);  
 
-
-        // $usuarios = Usuario::where('id_users',\Illuminate\Support\Facades\Auth::user()->id)->paginate(20);
-        // $usuarios = DB::table('usuarios')->where('id_users',\Illuminate\Support\Facades\Auth::user()->id);
-
-        // $usuarios = Usuario::where('id_users', \Illuminate\Support\Facades\Auth::user()->id )
-        //                         //->orWhere('id_users', 1)
-        //                         ->paginate(50);
-
-        // $roleName = Auth::user()->getRoleNames()->first();
-
-        // dd($roleName)->all();
-        // $usuario->id_users = \Illuminate\Support\Facades\Auth::user()->id;    
-
-        // //dd($usuarios);
 
     }
 
