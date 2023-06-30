@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\DelegacionController;
 use App\Http\Controllers\RegionController;
+use App\Http\Controllers\ReporteController;
 
 
 /*
@@ -52,6 +53,12 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::delete('delegaciones/{delegacion:slug}','DelegacionController@destroy')->name('delegaciones.destroy');
 
     Route::resource('roles', RolController::class)->except('show');
+
+    Route::get('reporte', 'ReporteController@index')->name('reporte.index');
+    Route::get('reporte/gestores', 'ReporteController@gestores')->name('reporte.gestores');
+    Route::get('reporte/regiones', 'ReporteController@regiones')->name('reporte.regiones');
+    Route::get('reporte/usuarios', 'ReporteController@usuarios')->name('reporte.usuarios');
+    Route::get('reporte/delegaciones', 'ReporteController@delegaciones')->name('reporte.delegaciones');
 
     // Route::resource('users', UserController::class)->except('show');
     Route::get('users', 'UserController@index')->name('users.index');

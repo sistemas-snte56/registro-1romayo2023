@@ -47,6 +47,13 @@
             </a>
         </li>
     @endcan
+    @can('ver-reporte')
+        <li class="side-menus {{ Request::is('reporte.index') ? 'active' : '' }}">
+            <a class="nav-link" href="{{route('reporte.index')}}">
+                <i class="fas fa-table"></i><span>Reportes</span>
+            </a>
+        </li>
+    @endcan    
 @elseif(Auth::user()->getRoleNames()->first() === "Supervisor")
     <li class="menu-header"><span> SUPERVISOR </span></li>
     @can('ver-rol')
