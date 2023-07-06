@@ -8,7 +8,7 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\DelegacionController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\ReporteController;
-
+// use App\Exports\UsersExport;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +60,11 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::get('reporte/usuarios', 'ReporteController@usuarios')->name('reporte.usuarios');
     Route::get('reporte/delegaciones', 'ReporteController@delegaciones')->name('reporte.delegaciones');
 
+    Route::get('reporte/gestores/export','ReporteController@exportGestor')->name('reporte.users.export');
+    Route::get('reporte/regiones/export','ReporteController@exportRegiones')->name('reporte.regiones.export');
+    Route::get('reporte/delegaciones/export','ReporteController@exportDelegaciones')->name('reporte.delegaciones.export');
+    Route::get('reporte/usuarios/export','ReporteController@exportUsuarios')->name('reporte.usuarios.export');
+
     // Route::resource('users', UserController::class)->except('show');
     Route::get('users', 'UserController@index')->name('users.index');
     Route::get('users/create','UserController@create')->name('users.create');
@@ -68,6 +73,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::get('users/{user:slug}/edit','UserController@edit')->name('users.edit');
     Route::patch('users/{user:slug}','UserController@update')->name('users.update');
     Route::delete('users/{user:slug}','UserController@destroy')->name('users.destroy');    
+        
 
     // Route::resource('usuarios', UsuarioController::class);
     Route::get('usuarios', 'UsuarioController@index')->name('usuarios.index');

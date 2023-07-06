@@ -9,6 +9,20 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
+
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md12">
+                                    <div class="form-group">
+                                        <a href="{{route('reporte.index')}}" class="btn btn-success">Regresar</a>
+                                        <a href="{{route('reporte.usuarios.export')}}" class="btn btn-success">export</a>                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+
                         <div class="card-body">
 
                             <table class="table table-hover table-responsive table-sm">

@@ -16,16 +16,29 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Pagination\Paginator;
 
+use App\Exports\UsersExport;
+use App\Exports\RegionExport;
+use App\Exports\DelegacionExport;
+use App\Exports\UsuarioExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+
 class ReporteController extends Controller
 {
 
     function __construct()
     {
-        $this->middleware('permission:ver-reporte|crear-reporte|editar-reporte|borrar-reporte')->only('index');
-        $this->middleware('permission:ver-reporte', ['only'=>['show']]);
-        $this->middleware('permission:crear-reporte', ['only'=>['create','store']]);
-        $this->middleware('permission:editar-reporte', ['only'=>['edit','update']]);
-        $this->middleware('permission:borrar-reporte', ['only'=>['destroy']]);
+        // $this->middleware('permission:ver-reporte|crear-reporte|editar-reporte|borrar-reporte')->only('index');
+        // $this->middleware('permission:ver-reporte', ['only'=>['show']]);
+        // $this->middleware('permission:crear-reporte', ['only'=>['create','store']]);
+        // $this->middleware('permission:editar-reporte', ['only'=>['edit','update']]);
+        // $this->middleware('permission:borrar-reporte', ['only'=>['destroy']]);
+
+        $this->middleware('permission:reporte.index', ['only'=>['index']] );
+        $this->middleware('permission:reporte.gestores', ['only'=>['gestores']] );
+        $this->middleware('permission:reporte.reguibes', ['only'=>['regiones']] );
+        $this->middleware('permission:reporte.usuarios', ['only'=>['usuarios']] );
+        $this->middleware('permission:reporte.delegaciones', ['only'=>['delegaciones']] );
     }
 
 
@@ -97,15 +110,15 @@ class ReporteController extends Controller
     public function regiones()
     {
         $delegaciones = Delegacion::count();
-        $regiones = Region::select(
-            'regiones.region',
-            'regiones.sede',
-            DB::raw('COUNT(*) as total')
-        )
-        ->join('delegaciones', 'regiones.id', '=', 'delegaciones.id_region')
-        ->groupBy('regiones.region')
-        ->groupBy('regiones.sede')
-        ->get();
+        // $regiones = Region::select(
+        //     'regiones.region',
+        //     'regiones.sede',
+        //     DB::raw('COUNT(*) as total')
+        // )
+        // ->join('delegaciones', 'regiones.id', '=', 'delegaciones.id_region')
+        // ->groupBy('regiones.region')
+        // ->groupBy('regiones.sede')
+        // ->get();
 
         $delegacionesPorRegion = DB::table('delegaciones')
                     ->join('regiones', 'regiones.id', '=', 'delegaciones.id_region')
@@ -119,7 +132,7 @@ class ReporteController extends Controller
                     ->groupBy('regiones.id')
                     ->get();
      
-        return view ('admin.reports.regiones',compact('regiones','delegacionesPorRegion','delegaciones'));
+        return view ('admin.reports.regiones',compact('delegacionesPorRegion','delegaciones'));
     }
 
     public function usuarios()
@@ -153,5 +166,44 @@ class ReporteController extends Controller
         return view('admin.reports.delegaciones',compact('delegaciones'));
     }
 
+
+    /**
+     * Exportar los usuarios
+     */
+
+    public function exportGestor() 
+    {
+        ini_set('memory_limit','1024M');
+        set_time_limit(3000000);
+        return Excel::download(new UsersExport, 'gestores.csv');
+    }
+
+    public function exportRegiones() 
+    {
+        ini_set('memory_limit','1024M');
+        set_time_limit(3000000);
+        return Excel::download(new RegionExport, 'regiones.csv');
+        // return Excel::download((new RegionExport)->setEncoding('UTF-8'), 'regiones.csv');
+        // return Excel::download(new RegionExport, 'regiones.csv')->header('Content-Type', 'text/csv; charset=UTF-8');
+        // return Excel::download(new RegionExport, 'regiones.csv')->withHeaders([
+        //     'Content-Type' => 'text/csv; charset=UTF-8',
+        // ]);        
+    }
+
+    public function exportDelegaciones() 
+    {
+        ini_set('memory_limit','1024M');
+        set_time_limit(3000000);
+        return Excel::download(new DelegacionExport, 'delegaciones.csv');
+    }
+
+    public function exportUsuarios() 
+    {
+        ini_set('memory_limit','1024M');
+        set_time_limit(3000000);
+        return Excel::download(new UsuarioExport, 'usuarios.csv');
+    }
+
 }
 
+// return Excel::download((new UsersExport)->setEncoding('UTF-8'), 'users.csv');

@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
+
+
+
+
 class UserController extends Controller
 {
 
@@ -199,4 +205,7 @@ class UserController extends Controller
         $user->save();
         return redirect()->route('users.index');
     }
+
+
+    
 }
