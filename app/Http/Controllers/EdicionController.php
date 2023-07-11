@@ -55,13 +55,13 @@ class EdicionController extends Controller
     public function create()
     {
         /*
-ID: {{ $user = Auth::user()->id;}} <br>
-{{ $user = Auth::user()->name;}} <br>
-<br>
-{{ $user = Auth::user()->delegaciones->regiones->region;}} <br>
-{{$roleName = Auth::user()->getRoleNames()->first();}} <br>
+            ID: {{ $user = Auth::user()->id;}} <br>
+            {{ $user = Auth::user()->name;}} <br>
+            <br>
+            {{ $user = Auth::user()->delegaciones->regiones->region;}} <br>
+            {{$roleName = Auth::user()->getRoleNames()->first();}} <br>
 
-*/
+        */
 
 
 
@@ -312,5 +312,19 @@ ID: {{ $user = Auth::user()->id;}} <br>
 
         return redirect()->route('usuario.index')->with('danger', 'Usuario eliminado satisfactoriamente.');
 
+    }
+
+    public function buscarCodigo(Request $request)
+    {
+        $codigoUsuario = $request->input('codigo');
+        
+        $usuario = Usuario::where('codigo', $codigoUsuario)->first();
+        
+        if ($usuario) {
+            return view('search-code.codigo', compact('usuario'));
+        } else {
+            return back()->with('error', 'El código no se encuentra.');
+        }
+        
     }
 }

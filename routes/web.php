@@ -8,6 +8,7 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\DelegacionController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\ReporteController;
+use App\Http\Controllers\EdicionController;
 // use App\Exports\UsersExport;
 
 /*
@@ -26,6 +27,22 @@ Route::get('/', function () {
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Route::post('/buscar', function (Illuminate\Http\Request $request){
+//     $codigo = $request->input('codigo');
+//     // dd($codigo);
+//     $usuario = Usuario::find('codigo',$codigo);
+// });
+
+Route::post('/search-code', [EdicionController::class,'buscarCodigo'])->name('buscar.codigo');
+
+
+// Route::post( '/search-code', function(Illuminate\Http\Request $request) {
+//     $codigo = $request->input('codigo');
+// } )->name('buscar.codigo');
+
+
+
 
 Auth::routes();
 

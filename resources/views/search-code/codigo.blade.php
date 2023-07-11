@@ -27,33 +27,35 @@
                         class="shadow-light">
                     </div>
                     <div class="card card-primary">
-                        <div class="float-right shadow-light" style="margin: 10px;">
-                            <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
-                                Inicia sesión 
-                            </a>
-                        </div>
-                        <div class="card-header"><h4>Buscar constancia</h4></div>
                         <div class="card-body">
                             <div class="m-b-md">
-                                <form action="{{route('buscar.codigo')}}" method="POST">
-                                    @csrf
+                                <h5>Enhorabuena:</h5>
+                                <div class="col-xs-12 col-sm-12 col-md12">
                                     <div class="form-group">
-                                        <input class="form-control" placeholder="Ingresa un código de 4 dígitos"  type="text" name="codigo" id="codigo" maxlength="4" required>                                        
-                                        @if(Session::has('error'))
-                                            <div class="pt-3" style="color:red" >
-                                                <strong>Error !</strong>  {{ Session::get('error') }}
-                                            </div>
-                                        @endif                                        
+                                        <label for="nombre">NOMBRE:</label>
+                                        <p>{{$usuario->nombre}} {{$usuario->apaterno}} {{$usuario->amaterno}}</p>
                                     </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md12">                                
                                     <div class="form-group">
-                                        <button  class="btn btn-primary btn-lg btn-block"  type="submit">Buscar</button>
+                                        <label for="nombre" style="text-transform: uppercase" >{{$usuario->delegaciones->nomenclatura}}:</label>
+                                        <p> {{$usuario->delegaciones->delegacion}} {{$usuario->delegaciones->nivel}} {{$usuario->delegaciones->sede}} <br>
+                                            {{$usuario->delegaciones->regiones->region}} {{$usuario->delegaciones->regiones->sede}}
+                                        </p>
                                     </div>
-                                    {{-- <div class="form-group">
-                                        @if(Session::has('error'))
-                                            <div class="alert alert-danger"> <strong>Error !</strong>  {{ Session::get('error') }}</div>
-                                        @endif
-                                    </div> --}}
-                                </form>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md12">                                
+                                    <div class="form-group ">
+                                        <label for="nombre">FOLIO:</label>
+                                        {{$usuario->folio}}                                         
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md12">
+                                    <div class="form-group">
+                                        <a href="/" class="btn btn-success">Regresar</a>
+                                        <a href="#" class="btn btn-info">Descargar constancia</a>
+                                    </div>
+                                </div>                                
                             </div>
                         </div>
                     </div>
