@@ -35,7 +35,7 @@
                         <div class="card-header"><h4>Buscar constancia</h4></div>
                         <div class="card-body">
                             <div class="m-b-md">
-                                <form action="{{route('buscar.codigo')}}" method="POST">
+                                <form action="{{route('buscar.codigo')}}" method="GET">
                                     @csrf
                                     <div class="form-group">
                                         <input class="form-control" placeholder="Ingresa un código de 4 dígitos"  type="text" name="codigo" id="codigo" maxlength="4" required>                                        

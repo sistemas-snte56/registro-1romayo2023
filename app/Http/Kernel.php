@@ -70,6 +70,7 @@ class Kernel extends HttpKernel
         'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,        
 
 
-        'regiones.middleware'=> \App\Http\Middleware\RegionesMiddleware::class,        
+        'regiones.middleware'=> \App\Http\Middleware\RegionesMiddleware::class,    
+        'get' => \App\Http\Middleware\RedirectIfNotPost::class,    
     ];
 }

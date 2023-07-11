@@ -30,26 +30,41 @@
                         <div class="card-body">
                             <div class="m-b-md">
                                 <h5>Enhorabuena:</h5>
-                                <div class="col-xs-12 col-sm-12 col-md12">
-                                    <div class="form-group">
-                                        <label for="nombre">NOMBRE:</label>
-                                        <p>{{$usuario->nombre}} {{$usuario->apaterno}} {{$usuario->amaterno}}</p>
+
+                                <fieldset disabled>
+
+                                    <div class="col-xs-12 col-sm-12 col-md12">
+                                        <div class="form-group">
+                                            <label for="nombre">NOMBRE:</label>
+                                            <input type="text" name="nombre" id="nombre" class="form-control" readonly disabled value="{{$usuario->nombre}} {{$usuario->apaterno}} {{$usuario->amaterno}}">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md12">                                
-                                    <div class="form-group">
-                                        <label for="nombre" style="text-transform: uppercase" >{{$usuario->delegaciones->nomenclatura}}:</label>
-                                        <p> {{$usuario->delegaciones->delegacion}} {{$usuario->delegaciones->nivel}} {{$usuario->delegaciones->sede}} <br>
-                                            {{$usuario->delegaciones->regiones->region}} {{$usuario->delegaciones->regiones->sede}}
-                                        </p>
+                                    <div class="col-xs-12 col-sm-12 col-md12">
+                                        <div class="form-group">
+                                            <label for="nivel">NIVEL EDUCATIVO:</label> 
+                                            <input type="text" name="nivel" id="nivel" class="form-control" readonly disabled value="{{$usuario->nivel->nivel}}">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md12">                                
-                                    <div class="form-group ">
-                                        <label for="nombre">FOLIO:</label>
-                                        {{$usuario->folio}}                                         
+                                    <div class="col-xs-12 col-sm-12 col-md12">                                
+                                        <div class="form-group">
+                                            <label for="delegacion" style="text-transform: uppercase" >{{$usuario->delegaciones->nomenclatura}}:</label>
+                                            <input type="text" name="delegacion" id="delegacion" class="form-control" readonly disabled value="{{$usuario->delegaciones->delegacion}} {{$usuario->delegaciones->nivel}} {{$usuario->delegaciones->sede}}">
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="col-xs-12 col-sm-12 col-md12">                                
+                                        <div class="form-group">
+                                            <label for="region" style="text-transform: uppercase" >REGIÓN:</label>
+                                            <input type="text" name="region" id="region" class="form-control" readonly disabled value="{{$usuario->delegaciones->regiones->region}} {{$usuario->delegaciones->regiones->sede}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md12">                                
+                                        <div class="form-group ">
+                                            <label for="folio">FOLIO:</label>
+                                            <input type="text" name="region" id="region" class="form-control" readonly disabled value="{{$usuario->folio}}">
+                                        </div>
+                                    </div>
+                                </fieldset>
+
                                 <div class="col-xs-12 col-sm-12 col-md12">
                                     <div class="form-group">
                                         <a href="/" class="btn btn-success">Regresar</a>

@@ -316,15 +316,22 @@ class EdicionController extends Controller
 
     public function buscarCodigo(Request $request)
     {
-        $codigoUsuario = $request->input('codigo');
-        
-        $usuario = Usuario::where('codigo', $codigoUsuario)->first();
-        
-        if ($usuario) {
-            return view('search-code.codigo', compact('usuario'));
+        if (!$request->isMethod('get')) {
+            return redirect()->back(); 
         } else {
-            return back()->with('error', 'El código no se encuentra.');
+            $codigoUsuario = $request->input('codigo');
+            
+            $usuario = Usuario::where('codigo', $codigoUsuario)->first();
+            
+            if ($usuario) {
+                return view('search-code.codigo', compact('usuario'));
+            } else {
+                return redirect()->back()->with('error', 'El código no se encuentra.');
+            }
         }
+
         
     }
+        
+    
 }

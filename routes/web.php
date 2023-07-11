@@ -34,7 +34,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //     $usuario = Usuario::find('codigo',$codigo);
 // });
 
-Route::post('/search-code', [EdicionController::class,'buscarCodigo'])->name('buscar.codigo');
+Route::get('/search-code', [EdicionController::class,'buscarCodigo'])->name('buscar.codigo')->middleware('get');
 
 
 // Route::post( '/search-code', function(Illuminate\Http\Request $request) {
