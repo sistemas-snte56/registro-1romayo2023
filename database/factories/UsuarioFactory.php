@@ -26,6 +26,15 @@ class UsuarioFactory extends Factory
         $nombre = strtoupper($this->faker->firstName);
         $apaterno = strtoupper($this->faker->lastName);
         $amaterno = strtoupper($this->faker->lastName);
+
+        $folio = strtolower(Str::random(4) . '-' . Str::random(4) . '-' . $this->faker->randomLetter() . $this->faker->randomNumber(3) . '-' . Str::random(4));
+        
+        while(Usuario::where('folio', $folio)->exists()) { //Verifica si el folio ya existe en la base de datos
+            $folio = strtolower(Str::random(4) . '-' . Str::random(4) . '-' . $this->faker->randomLetter() . $this->faker->randomNumber(3) . '-' . Str::random(4)); //Genera un nuevo folio si el anterior ya existe
+        }        
+
+        $codigo = substr($folio, -4);
+
         return [
             'nombre' => $nombre,
             'apaterno' => $apaterno,
@@ -40,6 +49,8 @@ class UsuarioFactory extends Factory
             'id_delegacion' => $this->faker->numberBetween($min = 1, $max = 245),
             'id_users' => $this->faker->numberBetween($min = 1, $max = 225),
             'slug' => Str::slug($nombre.'-'.$apaterno.'-'.$amaterno),
+            'folio' => $folio,
+            'codigo' => $codigo,
         ];
     }
 }

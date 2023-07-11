@@ -29,6 +29,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_users');
             // $table->unsignedBigInteger('id_users')->nullable()->default(null);;
             $table->string('slug',150)->nullable();
+            $table->string('folio',50);
+            $table->string('codigo',150);
             $table->timestamps();
 
             $table->foreign('id_genero')->references('id')->on('genero');

@@ -106,6 +106,14 @@
 
                                     <div class="col-xs-12 col-sm-12 col-md12">
                                         <div class="form-group">
+                                            <p>
+                                                <strong>UUID:</strong> {{$usuario->folio}}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-sm-12 col-md12">
+                                        <div class="form-group">
                                             <a href="{{route('usuarios.index')}}" class="btn btn-success">Regresar</a>
                                             @can('editar-usuario')
                                                 

@@ -12,7 +12,7 @@ use App\Models\Delegacion;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-
+use Faker\Generator as Faker;
 
 class EdicionController extends Controller
 {
@@ -94,7 +94,7 @@ ID: {{ $user = Auth::user()->id;}} <br>
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Faker $faker)
     {
     //    dd($request)->all();
 
@@ -131,6 +131,12 @@ ID: {{ $user = Auth::user()->id;}} <br>
             'delegacion.required' => 'La delegacion es requerida.',
         ]);
 
+        //Faker $faker;
+        $folio = strtolower(Str::random(4) . '-' . Str::random(4) . '-' . $faker->randomLetter() . $faker->randomNumber(3) . '-' . Str::random(4));
+        while(Usuario::where('folio', $folio)->exists()) { //Verifica si el folio ya existe en la base de datos
+            $folio = strtolower(Str::random(4) . '-' . Str::random(4) . '-' . $faker->randomLetter() . $faker->randomNumber(3) . '-' . Str::random(4)); //Genera un nuevo folio si el anterior ya existe
+        }
+        $codigo = substr($folio, -4);
         
         $usuario = new Usuario();
         $usuario->nombre = strtoupper($request->input('nombre'));
@@ -146,6 +152,13 @@ ID: {{ $user = Auth::user()->id;}} <br>
         $usuario->id_delegacion = Auth::user()->delegaciones->id;      
         $usuario->id_users = Auth::user()->id;      
         $usuario->slug = Str::slug($usuario->nombre . ' ' . $usuario->apaterno . ' ' . $usuario->amaterno);
+        $usuario->folio = $folio;
+        $usuario->codigo = $codigo;
+
+
+
+
+
 
         // dd($usuario)->all();
 

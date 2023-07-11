@@ -89,7 +89,7 @@
                                     @else
                                         <tr>
                                             <td colspan="6">
-                                                No se encuentran resultados para "{{ $searchTerm }}"
+                                                {{-- No se encuentran resultados para "{{ $searchTerm }}" --}}
                                             </td>
                                         </tr>
                                     @endif

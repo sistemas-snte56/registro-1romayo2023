@@ -13,6 +13,7 @@ use App\Http\Requests\StoreUsuarioRequest;
 use App\Http\Requests\UpdateUsuarioRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Faker\Generator as Faker;
 
 
 class UsuarioController extends Controller
@@ -98,7 +99,7 @@ $users = User::where('name', 'LIKE', '%'.$searchTerm.'%')
      * @param  \App\Http\Requests\StoreUsuarioRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUsuarioRequest $request)
+    public function store(StoreUsuarioRequest $request, Faker $faker)
     {
         // dd($request);
 
@@ -135,6 +136,17 @@ $users = User::where('name', 'LIKE', '%'.$searchTerm.'%')
             'delegacion.required' => 'La delegacion es requerida.',
         ]);
 
+        //Faker $faker;
+
+        $folio = strtolower(Str::random(4) . '-' . Str::random(4) . '-' . $faker->randomLetter() . $faker->randomNumber(3) . '-' . Str::random(4));
+
+
+        while(Usuario::where('folio', $folio)->exists()) { //Verifica si el folio ya existe en la base de datos
+            $folio = strtolower(Str::random(4) . '-' . Str::random(4) . '-' . $faker->randomLetter() . $faker->randomNumber(3) . '-' . Str::random(4)); //Genera un nuevo folio si el anterior ya existe
+        }
+        $codigo = substr($folio, -4);
+        // dd($folio);
+
         $usuario = new Usuario();
             $usuario->nombre = strtoupper($request->input('nombre'));
             $usuario->apaterno = strtoupper($request->input('a_paterno'));
@@ -149,6 +161,10 @@ $users = User::where('name', 'LIKE', '%'.$searchTerm.'%')
             $usuario->id_delegacion = $request->input('delegacion');      
             $usuario->id_users = \Illuminate\Support\Facades\Auth::user()->id;     
             $usuario->slug = Str::slug($usuario->nombre . ' ' . $usuario->apaterno . ' ' . $usuario->amaterno); 
+            $usuario->folio = $folio;
+            $usuario->codigo = $codigo;
+
+
             $usuario->save();  
 
 
